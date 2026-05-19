@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoTech Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --light:#e8e1d8;
+  --brown:#8b6b52;
+  --gray-brown:#736357;
+  --dark-brown:#4b372c;
+  --dark:#2f3133;
+  --white:#ffffff;
+  --accent:#c8853a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--dark);overflow-x:hidden;}
+
+/* ── HEADER ── */
+header{
+  position:fixed;top:0;left:0;width:100%;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px 70px;
+  background:rgba(232,225,216,0.96);
+  backdrop-filter:blur(12px);
+  z-index:1000;
+  border-bottom:1px solid rgba(0,0,0,0.08);
+}
+.logo{font-family:'Playfair Display',serif;font-size:28px;color:var(--dark-brown);cursor:pointer;letter-spacing:-0.5px;}
+nav a{text-decoration:none;margin-left:28px;color:var(--dark);font-size:14px;font-weight:500;transition:.3s;}
+nav a:hover{color:var(--brown);}
+
+/* ── PAGES ── */
+.page{display:none;}
+.page.active{display:block;}
+
+/* ── GENERAL ── */
+section{padding:120px 70px;}
+h1,h2,h3{font-family:'Playfair Display',serif;}
+h2{font-size:40px;margin-bottom:20px;color:var(--dark-brown);}
+p{line-height:1.75;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:60px;
+  background:linear-gradient(to right,rgba(232,225,216,.97),rgba(232,225,216,.82)),
+    url('https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1600&q=80');
+  background-size:cover;background-position:center;
+}
+.hero h1{font-size:58px;margin-bottom:25px;color:var(--dark-brown);line-height:1.1;}
+.hero p{font-size:18px;color:var(--gray-brown);max-width:550px;}
+.hero img{width:100%;border-radius:24px;box-shadow:0 24px 60px rgba(0,0,0,.18);}
+
+/* ── POPUP ── */
+.hero-popup{
+  margin-top:25px;padding:22px;border-radius:18px;
+  background:rgba(255,255,255,.95);box-shadow:0 14px 40px rgba(0,0,0,.13);
+  display:none;animation:fade .4s ease;
+}
+.hero-popup.active{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── BUTTON ── */
+.btn{
+  display:inline-block;margin-top:25px;padding:14px 30px;
+  border:none;border-radius:10px;background:var(--brown);
+  color:#fff;text-decoration:none;cursor:pointer;transition:.3s;font-weight:600;font-size:14px;
+}
+.btn:hover{background:var(--dark-brown);transform:translateY(-3px);box-shadow:0 8px 20px rgba(75,55,44,.3);}
+
+/* ── SERVICES ── */
+.dark-section{background:linear-gradient(135deg,var(--dark-brown),var(--dark));color:#fff;text-align:center;}
+.dark-section h2{color:var(--light);}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:50px;}
+.card{border-radius:22px;overflow:hidden;background:rgba(255,255,255,.07);transition:.35s;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(0,0,0,.22);cursor:pointer;}
+.card:hover{transform:translateY(-10px);box-shadow:0 20px 50px rgba(0,0,0,.35);}
+.card img{width:100%;height:220px;object-fit:cover;}
+.card-content{padding:26px;}
+.card-content h3{margin-bottom:12px;font-family:'Playfair Display',serif;font-size:20px;}
+.card-badge{display:inline-block;margin-top:14px;padding:8px 18px;background:rgba(255,255,255,.15);border-radius:8px;color:#fff;font-size:13px;font-weight:600;transition:.3s;}
+.card:hover .card-badge{background:var(--brown);}
+
+/* ── SPLIT ── */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.split img{width:100%;border-radius:22px;box-shadow:0 24px 50px rgba(0,0,0,.14);}
+
+/* ── PROJECTS ── */
+.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:50px;}
+.project{
+  position:relative;height:320px;border-radius:22px;overflow:hidden;
+  background-size:cover;background-position:center;
+  display:flex;align-items:flex-end;padding:25px;
+  transition:.35s;box-shadow:0 14px 35px rgba(0,0,0,.18);cursor:pointer;
+}
+.project:hover{transform:translateY(-8px);box-shadow:0 24px 55px rgba(0,0,0,.28);}
+.project::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85),rgba(0,0,0,.15));}
+.project-content{position:relative;z-index:2;}
+.project span{display:block;color:#fff;font-size:22px;font-weight:600;font-family:'Playfair Display',serif;}
+.project-badge{
+  margin-top:10px;padding:8px 18px;border:none;border-radius:8px;
+  background:rgba(255,255,255,.94);color:var(--dark-brown);cursor:pointer;
+  font-weight:700;transition:.3s;font-size:13px;
+}
+.project-badge:hover{background:#fff;transform:translateX(4px);}
+
+/* ── BLOG ── */
+.blog{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:50px;}
+.blog-card{background:#fff;border-radius:22px;overflow:hidden;transition:.35s;box-shadow:0 10px 28px rgba(0,0,0,.09);cursor:pointer;}
+.blog-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,.15);}
+.blog-card img{width:100%;height:220px;object-fit:cover;}
+.blog-card div{padding:26px;}
+.blog-card h3{font-family:'Playfair Display',serif;font-size:19px;color:var(--dark-brown);margin-bottom:10px;}
+.blog-card p{font-size:14px;color:#666;}
+.blog-tag{display:inline-block;margin-top:14px;padding:5px 14px;background:#f5efe8;border-radius:20px;font-size:12px;font-weight:600;color:var(--brown);}
+
+/* ── FOOTER ── */
+.footer{
+  background:linear-gradient(135deg,var(--dark),var(--dark-brown));color:#fff;
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;
+}
+input,textarea{
+  width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;
+  background:rgba(255,255,255,.12);color:#fff;font-family:'DM Sans',sans-serif;
+}
+textarea{min-height:130px;resize:vertical;}
+input::placeholder,textarea::placeholder{color:#ddd;}
+
+/* ══════════════════════════════════════
+   SUB-PAGE STYLES
+══════════════════════════════════════ */
+.sub-hero{
+  min-height:52vh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:140px 70px 60px;
+  background-size:cover;background-position:center;
+  position:relative;
+}
+.sub-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(40,25,15,.9),rgba(40,25,15,.3));}
+.sub-hero-content{position:relative;z-index:2;}
+.sub-hero h1{font-size:52px;color:#fff;margin-bottom:14px;line-height:1.1;}
+.sub-hero p{font-size:17px;color:rgba(255,255,255,.85);max-width:680px;line-height:1.75;}
+
+.back-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-bottom:22px;padding:10px 22px;border:none;border-radius:8px;
+  background:rgba(255,255,255,.18);color:#fff;cursor:pointer;
+  font-weight:600;transition:.3s;backdrop-filter:blur(4px);
+  text-decoration:none;font-size:14px;font-family:'DM Sans',sans-serif;
+}
+.back-btn:hover{background:rgba(255,255,255,.32);}
+
+/* consult block */
+.consult-section{padding:80px 70px;}
+.consult-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+.consult-text h2{font-size:34px;margin-bottom:22px;color:var(--dark-brown);}
+.consult-text p{color:#555;margin-bottom:18px;font-size:15.5px;}
+.consult-img{border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.16);}
+.consult-img img{width:100%;height:100%;object-fit:cover;display:block;}
+
+.info-boxes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px;}
+.info-box{
+  background:#fff;border-radius:18px;padding:30px;
+  box-shadow:0 8px 28px rgba(0,0,0,.08);border-left:4px solid var(--brown);
+}
+.info-box h4{font-family:'Playfair Display',serif;font-size:18px;color:var(--dark-brown);margin-bottom:10px;}
+.info-box p{font-size:14px;color:#666;line-height:1.65;}
+
+/* catalog */
+.catalog-section{padding:60px 70px 100px;}
+.catalog-section h2{font-size:34px;color:var(--dark-brown);margin-bottom:10px;}
+.catalog-section .sub-desc{color:#777;margin-bottom:40px;font-size:15px;}
+.catalog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+.prod-card{
+  background:#fff;border-radius:22px;overflow:hidden;
+  box-shadow:0 10px 32px rgba(0,0,0,.1);transition:.3s;
+}
+.prod-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.16);}
+.prod-card img{width:100%;height:200px;object-fit:cover;}
+.prod-body{padding:22px;}
+.prod-body h3{font-family:'Playfair Display',serif;font-size:18px;color:var(--dark-brown);margin-bottom:10px;}
+.prod-spec{list-style:none;padding:0;margin-bottom:16px;}
+.prod-spec li{font-size:13px;color:#666;padding:4px 0;border-bottom:1px solid #f0ebe4;}
+.prod-spec li:last-child{border:none;}
+.prod-price{font-size:22px;font-weight:700;color:var(--brown);margin-bottom:16px;}
+.prod-price span{font-size:13px;font-weight:400;color:#999;}
+.order-btn{
+  width:100%;padding:13px;border:none;border-radius:10px;
+  background:var(--brown);color:#fff;cursor:pointer;font-weight:600;
+  transition:.3s;font-size:14px;font-family:'DM Sans',sans-serif;
+}
+.order-btn:hover{background:var(--dark-brown);transform:translateY(-2px);}
+
+/* modal */
+.modal-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+  z-index:9000;align-items:center;justify-content:center;
+}
+.modal-overlay.open{display:flex;}
+.modal-box{
+  background:#fff;border-radius:22px;padding:44px;max-width:500px;width:90%;
+  box-shadow:0 40px 100px rgba(0,0,0,.3);animation:fade .35s ease;
+}
+.modal-box h3{font-family:'Playfair Display',serif;font-size:24px;color:var(--dark-brown);margin-bottom:6px;}
+.modal-box p{color:#777;font-size:14px;margin-bottom:22px;}
+.modal-box input,.modal-box textarea{
+  background:#f5efe8;color:var(--dark);border:1px solid #e8ddd5;margin-top:10px;
+  border-radius:10px;font-family:'DM Sans',sans-serif;
+}
+.modal-box input::placeholder,.modal-box textarea::placeholder{color:#aaa;}
+.modal-close{float:right;background:none;border:none;font-size:24px;cursor:pointer;color:#bbb;margin-top:-12px;transition:.2s;}
+.modal-close:hover{color:var(--dark-brown);}
+
+/* ── ARTICLE PAGE ── */
+.article-hero{
+  min-height:46vh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:140px 70px 50px;background-size:cover;background-position:center;position:relative;
+}
+.article-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(30,18,10,.92),rgba(30,18,10,.35));}
+.article-hero-content{position:relative;z-index:2;}
+.article-hero h1{font-size:46px;color:#fff;margin-bottom:12px;max-width:760px;line-height:1.15;}
+.article-meta{color:rgba(255,255,255,.7);font-size:14px;}
+
+.article-body{max-width:820px;margin:0 auto;padding:60px 70px 80px;}
+.article-body h2{font-size:28px;color:var(--dark-brown);margin:40px 0 16px;}
+.article-body h3{font-size:21px;color:var(--dark-brown);margin:30px 0 12px;}
+.article-body p{color:#444;font-size:16px;line-height:1.85;margin-bottom:20px;}
+.article-body ul{padding-left:22px;margin-bottom:20px;}
+.article-body ul li{color:#444;font-size:16px;line-height:1.8;margin-bottom:6px;}
+.article-img{width:100%;border-radius:20px;margin:30px 0;box-shadow:0 16px 40px rgba(0,0,0,.12);}
+.article-callout{
+  background:#fff;border-left:5px solid var(--brown);border-radius:12px;
+  padding:22px 26px;margin:28px 0;box-shadow:0 6px 20px rgba(0,0,0,.07);
+}
+.article-callout p{margin:0;color:var(--dark-brown);font-weight:500;}
+
+/* ── SERVICE INFO PAGE ── */
+.service-features{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:40px;}
+.feature-card{background:#fff;border-radius:18px;padding:28px;box-shadow:0 8px 24px rgba(0,0,0,.07);}
+.feature-card .icon{font-size:32px;margin-bottom:14px;}
+.feature-card h4{font-family:'Playfair Display',serif;font-size:17px;color:var(--dark-brown);margin-bottom:8px;}
+.feature-card p{font-size:14px;color:#666;line-height:1.65;}
+.steps-list{counter-reset:steps;list-style:none;margin-top:30px;}
+.steps-list li{counter-increment:steps;padding:18px 18px 18px 64px;position:relative;background:#fff;border-radius:14px;margin-bottom:14px;box-shadow:0 4px 16px rgba(0,0,0,.06);}
+.steps-list li::before{content:counter(steps);position:absolute;left:18px;top:18px;width:32px;height:32px;background:var(--brown);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;}
+.steps-list li h4{font-family:'Playfair Display',serif;font-size:16px;color:var(--dark-brown);margin-bottom:4px;}
+.steps-list li p{font-size:14px;color:#666;margin:0;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .catalog-grid{grid-template-columns:repeat(2,1fr);}
+  .info-boxes{grid-template-columns:1fr 1fr;}
+  .service-features{grid-template-columns:1fr;}
+}
+@media(max-width:1000px){
+  .hero,.split,.footer,.consult-grid{grid-template-columns:1fr;}
+  .cards,.projects,.blog,.catalog-grid{grid-template-columns:1fr;}
+  .info-boxes{grid-template-columns:1fr;}
+  section,.consult-section,.catalog-section{padding:110px 24px 60px;}
+  header{padding:18px 24px;}
+  .hero h1{font-size:38px;}
+  .sub-hero{padding:130px 24px 48px;}
+  .sub-hero h1{font-size:34px;}
+  .article-body{padding:40px 24px 60px;}
+  .article-hero{padding:130px 24px 46px;}
+  .article-hero h1{font-size:32px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header>
+  <div class="logo" onclick="showPage('home')">EcoTech Energy</div>
+  <nav>
+    <a href="#" onclick="showPage('home')">Головна</a>
+    <a href="#" onclick="showPage('home');scrollAfter('services')">Послуги</a>
+    <a href="#" onclick="showPage('home');scrollAfter('projects')">Проєкти</a>
+    <a href="#" onclick="showPage('home');scrollAfter('blog')">Блог</a>
+    <a href="#" onclick="showPage('home');scrollAfter('contact')">Контакти</a>
+  </nav>
+</header>
+
+<!-- ═══════════════════════════════════════
+     HOME PAGE
+═══════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <h1>Енергонезалежність для будинку та бізнесу</h1>
+      <p>Сонячні електростанції, акумуляторні системи, безперебійне живлення, теплові насоси, smart автоматизація та сучасні енергетичні рішення.</p>
+      <button class="btn" onclick="toggleHeroPopup()">Детальніше</button>
+      <div class="hero-popup" id="heroPopup">
+        <h3 style="margin-bottom:12px;color:#4b372c;font-family:'Playfair Display',serif;">Комплексні енергетичні рішення</h3>
+        <p style="color:#555;font-size:14.5px;">Ми допомагаємо створити повністю автономну систему живлення для будинку, квартири або підприємства: сонячні панелі, акумулятори, UPS системи, вітрогенератори та smart-керування енергією.</p>
+        <a href="#" class="btn" onclick="showPage('home');scrollAfter('projects')">Перейти до проєктів</a>
+      </div>
+    </div>
+    <img src="https://eef.org.ua/wp-content/uploads/2023/08/shutterstock_677003104-e1693295844823-1280x642.jpg" alt="EcoTech Energy — сонячні панелі">
+  </section>
+
+  <!-- SERVICES -->
+  <section class="dark-section" id="services">
+    <h2>Наші рішення</h2>
+    <p style="color:rgba(255,255,255,.7);max-width:600px;margin:0 auto;">Повний спектр технологій для вашої енергонезалежності — від проєкту до запуску.</p>
+    <div class="cards">
+      <div class="card" onclick="showPage('service-solar')">
+        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1200&q=80" alt="Сонячні панелі">
+        <div class="card-content">
+          <h3>Сонячні електростанції</h3>
+          <p style="color:rgba(255,255,255,.75);font-size:14px;">Генерація електроенергії для будинку, квартири або підприємства.</p>
+          <span class="card-badge">Дізнатись більше →</span>
+        </div>
+      </div>
+      <div class="card" onclick="showPage('service-ups')">
+        <img src="https://media.triniti-sb.com.ua/media/media/blog/akb-gaz-kotel-cover.jpg" alt="Акумулятори та UPS">
+        <div class="card-content">
+          <h3>Акумулятори та UPS</h3>
+          <p style="color:rgba(255,255,255,.75);font-size:14px;">Системи резервного живлення для стабільної роботи під час відключень.</p>
+          <span class="card-badge">Дізнатись більше →</span>
+        </div>
+      </div>
+      <div class="card" onclick="showPage('service-smart')">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80" alt="Smart системи">
+        <div class="card-content">
+          <h3>Smart системи</h3>
+          <p style="color:rgba(255,255,255,.75);font-size:14px;">Автоматичне керування споживанням енергії та smart-аналітика.</p>
+          <span class="card-badge">Дізнатись більше →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPLIT -->
+  <section class="split">
+    <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=900&q=80" alt="Енергорішення">
+    <div>
+      <h2>Енергетичні рішення нового покоління</h2>
+      <p>Ми поєднуємо сонячні панелі, теплові насоси, системи накопичення енергії та smart-контроль у єдину ефективну екосистему. Монтаж під ключ, гарантія, підтримка.</p>
+      <a href="#" class="btn" onclick="showPage('home');scrollAfter('projects')">Наші проєкти</a>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog">
+    <h2>Корисні матеріали</h2>
+    <p style="color:#666;margin-bottom:0;">Все про сонячну енергетику, резервне живлення та розумний будинок.</p>
+    <div class="blog">
+      <div class="blog-card" onclick="showPage('article-solar')">
+        <img src="https://journal.vencon.ua/uploads/j/posts/1379/2-preymushchestva-kotorymy-nadeleny-alternatyvnye-ystochnyky-enerhyy.jpg" alt="Сонячні панелі">
+        <div>
+          <h3>Як працюють сонячні панелі</h3>
+          <p>Основи генерації електроенергії та економії для будинку.</p>
+          <span class="blog-tag">Сонячна енергія</span>
+        </div>
+      </div>
+      <div class="blog-card" onclick="showPage('article-ups')">
+        <img src="https://artled.com.ua/content/uploads/images/photo_2023-10-10_09-05-31.jpg" alt="UPS акумулятори">
+        <div>
+          <h3>Резервне живлення 2026</h3>
+          <p>Які UPS та акумулятори актуальні сьогодні для квартири і будинку.</p>
+          <span class="blog-tag">Резервне живлення</span>
+        </div>
+      </div>
+      <div class="blog-card" onclick="showPage('article-smart')">
+        <img src="https://s.ek.ua/posts/files/7140/wide_pic.jpg" alt="Smart енергія">
+        <div>
+          <h3>Smart керування енергією</h3>
+          <p>Автоматизація споживання та контроль через смартфон.</p>
+          <span class="blog-tag">Автоматизація</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" style="background:#f5efe8;">
+    <h2>Наші проєкти</h2>
+    <p style="color:#666;margin-bottom:0;">Реалізовані рішення для будинків, квартир та підприємств.</p>
+    <div class="projects">
+      <div class="project" style="background-image:url('https://i1.poltava.to/uploads/2023/12/15/solar1.jpg')" onclick="showPage('solar')">
+        <div class="project-content">
+          <span>Сонячна станція для будинку</span>
+          <button class="project-badge">Детальніше →</button>
+        </div>
+      </div>
+      <div class="project" style="background-image:url('https://rozumdim.com.ua/wp-content/uploads/2026/02/avtonomne-zhivlennya-pri-vidkljuchenni-svitla.jpeg')" onclick="showPage('apartment')">
+        <div class="project-content">
+          <span>Система для квартири</span>
+          <button class="project-badge">Детальніше →</button>
+        </div>
+      </div>
+      <div class="project" style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80')" onclick="showPage('smart')">
+        <div class="project-content">
+          <span>Smart енергомоніторинг</span>
+          <button class="project-badge">Детальніше →</button>
+        </div>
+      </div>
+      <div class="project" style="background-image:url('https://teplosoft.com.ua/assets/images/Novi-statti/10-4o-teke-teplovuu-nasos/teplovuu-nasos-mitsubishi-electric.jpeg')" onclick="showPage('heatpump')">
+        <div class="project-content">
+          <span>Теплові насоси</span>
+          <button class="project-badge">Детальніше →</button>
+        </div>
+      </div>
+      <div class="project" style="background-image:url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=900&q=80')" onclick="showPage('wind')">
+        <div class="project-content">
+          <span>Вітрогенератори</span>
+          <button class="project-badge">Детальніше →</button>
+        </div>
+      </div>
+      <div class="project" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80')" onclick="showPage('business')">
+        <div class="project-content">
+          <span>Підприємства та офіси</span>
+          <button class="project-badge">Детальніше →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <section class="footer" id="contact">
+    <div>
+      <h2 style="color:#fff;">Контакти</h2>
+      <p>Email: infoecotech@gmail.com</p><br>
+      <p>Телефон: +38 (050) 185-59-57</p><br>
+      <p>Україна, Полтава</p>
+    </div>
+    <div>
+      <h2 style="color:#fff;">Написати нам</h2>
+      <form onsubmit="event.preventDefault();alert('Повідомлення надіслано!')">
+        <input type="text" placeholder="Ваше ім'я" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Ваше повідомлення"></textarea>
+        <button class="btn">Відправити</button>
+      </form>
+    </div>
+  </section>
+
+</div><!-- /page-home -->
+
+
+<!-- ═══════════════════════════════════════
+     SERVICE PAGE — СОНЯЧНІ ЕЛЕКТРОСТАНЦІЇ
+═══════════════════════════════════════ -->
+<div class="page" id="page-service-solar">
+  <div class="sub-hero" style="background-image:url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=1800&q=80')">
+    <div class="sub-hero-content">
+      <button class="back-btn" onclick="showPage('home')">← Повернутись</button>
+      <h1>Сонячні електростанції</h1>
+      <p>Власна генерація електроенергії — захист від відключень і тарифів на десятиліття вперед.</p>
+    </div>
+  </div>
+  <div class="consult-section">
+    <div class="consult-grid">
+      <div class="consult-text">
+        <h2>Що таке сонячна електростанція?</h2>
+        <p>Сонячна електростанція — це комплекс фотоелектричних панелей, інвертора та (за потреби) акумуляторного блоку. Панелі перетворюють сонячне світло на постійний струм, інвертор конвертує його на звичайні 220 В для живлення будь-якої техніки.</p>
+        <p>Ми встановлюємо системи будь-якого масштабу: від 1 кВт для дачі до 100+ кВт для підприємств. Кожен проєкт починається з безкоштовного виїзду інженера, аналізу ваших рахунків та розробки оптимальної конфігурації.</p>
+        <p>Термін окупності — 4–7 років, гарантія на панелі — 25 років. Більшість клієнтів скорочують витрати на електрику на 60–90% вже в перший місяць після запуску.</p>
+        <div class="service-features">
+          <div class="feature-card">
+            <div class="icon">☀️</div>
+            <h4>Виробіток цілий рік</h4>
+            <p>Навіть у хмарну погоду система виробляє до 30% від номінальної потужності. Влітку — з надлишком.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">🔋</div>
+            <h4>Зберігання енергії</h4>
+            <p>Акумуляторний блок зберігає надлишок на ніч або для резерву при відключеннях мережі.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">💸</div>
+            <h4>Продаж в мережу</h4>
+            <p>Надлишок електрики можна продавати обленерго за «зеленим» тарифом і отримувати дохід.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">📱</div>
+            <h4>Онлайн-моніторинг</h4>
+            <p>Стежте за виробітком, споживанням і станом системи в реальному часі зі смартфону.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="consult-img" style="height:380px;">
+          <img src="https://images.unsplash.com/photo-1566093097221-ac2335b09e70?auto=format&fit=crop&w=900&q=80" alt="Сонячні панелі на даху">
+        </div>
+        <div style="margin-top:28px;">
+          <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--dark-brown);margin-bottom:16px;">Як проходить монтаж?</h3>
+          <ol class="steps-list">
+            <li><h4>Безкоштовний виїзд та аудит</h4><p>Замір даху, аналіз тіней, вивчення рахунків за електрику.</p></li>
+            <li><h4>Розробка проєкту</h4><p>Оптимальна конфігурація та детальне техніко-економічне обґрунтування.</p></li>
+            <li><h4>Монтаж (1–3 дні)</h4><p>Установка панелей, інвертора, кабельної траси та щита автоматики.</p></li>
+            <li><h4>Підключення та запуск</h4><p>Підключення до мережі, налаштування моніторингу, інструктаж.</p></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="info-boxes">
+      <div class="info-box"><h4>📍 Де встановлювати</h4><p>Скатний або плаский дах, фасад, земельна ділянка. Оптимальний нахил 30–45°, орієнтація — південь. Для 5 кВт потрібно ~25 м².</p></div>
+      <div class="info-box"><h4>⚡ Що отримуєте</h4><p>Власна електрика вдень, заряд акумуляторів на ніч, продаж надлишку, незалежність від відключень і зростання тарифів.</p></div>
+      <div class="info-box"><h4>🛡️ Гарантії</h4><p>5 років на монтажні роботи. 10–12 років на інвертор. 25 років на продуктивність панелей (не менше 80%).</p></div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:0 70px 80px;">
+    <h2>Готові почати?</h2>
+    <p style="color:#666;max-width:500px;margin:0 auto 24px;">Замовте безкоштовну консультацію — наш інженер приїде, зробить обмір і розрахує вашу систему.</p>
+    <button class="btn" style="font-size:16px;padding:16px 40px;" onclick="openOrder('Безкоштовна консультація — Сонячні електростанції')">Замовити консультацію безкоштовно</button>
+  </div>
+  <section class="footer">
+    <div><h2 style="color:#fff;">Контакти</h2><p>Email: infoecotech@gmail.com</p><br><p>Телефон: +38 (050) 185-59-57</p><br><p>Україна, Полтава</p></div>
+    <div><h2 style="color:#fff;">Написати нам</h2><form onsubmit="event.preventDefault();alert('Повідомлення надіслано!')"><input type="text" placeholder="Ваше ім'я" required><input type="email" placeholder="Email" required><textarea placeholder="Питання або побажання"></textarea><button class="btn">Відправити</button></form></div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     SERVICE PAGE — АКУМУЛЯТОРИ ТА UPS
+═══════════════════════════════════════ -->
+<div class="page" id="page-service-ups">
+  <div class="sub-hero" style="background-image:url('https://images.unsplash.com/photo-1620714223084-8fcacc2dbed4?auto=format&fit=crop&w=1800&q=80')">
+    <div class="sub-hero-content">
+      <button class="back-btn" onclick="showPage('home')">← Повернутись</button>
+      <h1>Акумулятори та UPS</h1>
+      <p>Резервне живлення для будинку, квартири та бізнесу — від простого ДБЖ до промислових BESS-систем.</p>
+    </div>
+  </div>
+  <div class="consult-section">
+    <div class="consult-grid">
+      <div class="consult-text">
+        <h2>Як резервне живлення захищає вас?</h2>
+        <p>Відключення електрики стали реальністю для мільйонів українців. Акумуляторна система або UPS забезпечує автоматичне перемикання на резерв протягом мілісекунд — жодних перебоїв у роботі техніки.</p>
+        <p>Сучасні літій-залізо-фосфатні (LFP) акумулятори служать 10+ років і витримують 3000–6000 циклів заряду-розряду. Вони безпечні, не горять, не виділяють газів і займають мінімум місця.</p>
+        <p>Ми підбираємо систему під ваше споживання: від компактного ДБЖ на 1–2 кВт·год для квартири до промислового BESS для підприємства.</p>
+        <div class="service-features">
+          <div class="feature-card"><div class="icon">⚡</div><h4>Миттєве перемикання</h4><p>Перехід на резерв менш ніж за 20 мс — комп'ютер навіть не перезавантажується.</p></div>
+          <div class="feature-card"><div class="icon">🔋</div><h4>LFP-технологія</h4><p>Літій-залізо-фосфат — найбезпечніша та найдовговічніша хімія для домашнього використання.</p></div>
+          <div class="feature-card"><div class="icon">🌞</div><h4>Сумісність з сонцем</h4><p>Будь-яка наша акумуляторна система легко інтегрується із сонячною станцією.</p></div>
+          <div class="feature-card"><div class="icon">📊</div><h4>Smart-моніторинг</h4><p>Рівень заряду, час автономії, стан батарей — все в мобільному додатку.</p></div>
+        </div>
+      </div>
+      <div>
+        <div class="consult-img" style="height:380px;">
+          <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=900&q=80" alt="Акумуляторна система">
+        </div>
+        <div style="margin-top:28px;">
+          <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--dark-brown);margin-bottom:16px;">Типи систем</h3>
+          <ol class="steps-list">
+            <li><h4>Портативні Power Station</h4><p>EcoFlow, Bluetti — для квартири, без монтажу. Просто вмикаєте в розетку.</p></li>
+            <li><h4>Стаціонарні ДБЖ + АКБ</h4><p>Настінні блоки Pylontech/BYD + інвертор. Монтаж 2–4 год, гарантія 5 років.</p></li>
+            <li><h4>Гібридні системи</h4><p>Акумулятор + сонячні панелі + мережа. Максимальна автономія і економія.</p></li>
+            <li><h4>Промислові BESS</h4><p>Контейнерні рішення для підприємств і офісних центрів.</p></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="info-boxes">
+      <div class="info-box"><h4>🏠 Для квартири</h4><p>Портативна станція або настінний блок. Установка без погодження з ОСББ, без свердління несучих стін.</p></div>
+      <div class="info-box"><h4>🏡 Для будинку</h4><p>Стаціонарний акумуляторний блок 5–15 кВт·год. Підключення до електрощита, автоматичне перемикання.</p></div>
+      <div class="info-box"><h4>🏭 Для бізнесу</h4><p>Промислові рішення від 20 кВт·год. Захист виробничих ліній, серверних кімнат, торгових центрів.</p></div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:0 70px 80px;">
+    <h2>Підберемо систему під вас</h2>
+    <p style="color:#666;max-width:500px;margin:0 auto 24px;">Розкажіть про ваш об'єкт — ми розрахуємо оптимальну ємність і вартість безкоштовно.</p>
+    <button class="btn" style="font-size:16px;padding:16px 40px;" onclick="openOrder('Консультація — Акумулятори та UPS')">Отримати розрахунок безкоштовно</button>
+  </div>
+  <section class="footer">
+    <div><h2 style="color:#fff;">Контакти</h2><p>Email: infoecotech@gmail.com</p><br><p>Телефон: +38 (050) 185-59-57</p><br><p>Україна, Полтава</p></div>
+    <div><h2 style="color:#fff;">Написати нам</h2><form onsubmit="event.preventDefault();alert('Повідомлення надіслано!')"><input type="text" placeholder="Ваше ім'я" required><input type="email" placeholder="Email" required><textarea placeholder="Питання або побажання"></textarea><button class="btn">Відправити</button></form></div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     SERVICE PAGE — SMART СИСТЕМИ
+═══════════════════════════════════════ -->
+<div class="page" id="page-service-smart">
+  <div class="sub-hero" style="background-image:url('https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=1800&q=80')">
+    <div class="sub-hero-content">
+      <button class="back-btn" onclick="showPage('home')">← Повернутись</button>
+      <h1>Smart системи</h1>
+      <p>Розумний будинок починається з розумного управління енергією — економте 15–25% без жодних обмежень.</p>
+    </div>
+  </div>
+  <div class="consult-section">
+    <div class="consult-grid">
+      <div class="consult-text">
+        <h2>Що таке Smart Energy Management?</h2>
+        <p>Smart система — це мозок вашої енергосистеми. Вона аналізує вироблення сонячних панелей, рівень заряду акумулятора, ціну електрики в мережі та ваші звички споживання — і автоматично оптимізує все це для максимальної економії.</p>
+        <p>Наприклад: бойлер вмикається тільки тоді, коли сонячна генерація максимальна і є надлишок безкоштовної електрики. Кондиціонер переходить у режим охолодження до пікового тарифу. Пральна машина запускається о 23:00 за нічним тарифом. Все це — автоматично.</p>
+        <p>Додатково: онлайн-моніторинг, сповіщення про несправності, місячні звіти про заощадження, інтеграція з Google Home і Apple HomeKit.</p>
+        <div class="service-features">
+          <div class="feature-card"><div class="icon">🤖</div><h4>AI-автоматизація</h4><p>Система сама вчиться вашим звичкам і планує споживання для максимальної економії.</p></div>
+          <div class="feature-card"><div class="icon">📱</div><h4>Управління з телефону</h4><p>iOS і Android додатки для контролю в реальному часі, навіть коли ви за кордоном.</p></div>
+          <div class="feature-card"><div class="icon">🔔</div><h4>Push-сповіщення</h4><p>Миттєве сповіщення про відключення, несправність обладнання або стрибок напруги.</p></div>
+          <div class="feature-card"><div class="icon">🔗</div><h4>Відкриті інтеграції</h4><p>Home Assistant, Google Home, Alexa, Apple HomeKit, MQTT, Modbus — повна сумісність.</p></div>
+        </div>
+      </div>
+      <div>
+        <div class="consult-img" style="height:380px;">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80" alt="Smart моніторинг дашборд">
+        </div>
+        <div style="margin-top:28px;">
+          <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--dark-brown);margin-bottom:16px;">Що входить у систему?</h3>
+          <ol class="steps-list">
+            <li><h4>Smart-лічильник</h4><p>Вимірює споживання по кожній фазі та окремих лініях у реальному часі.</p></li>
+            <li><h4>Gateway / сервер</h4><p>Збирає дані, виконує автоматизацію локально без залежності від хмари.</p></li>
+            <li><h4>Smart реле та розетки</h4><p>Керовані вимикачі для підключення бойлера, кліматичної техніки, освітлення.</p></li>
+            <li><h4>Мобільний додаток</h4><p>Графіки, звіти, управління та сповіщення в одному місці.</p></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="info-boxes">
+      <div class="info-box"><h4>💡 Економія</h4><p>Середня економія після встановлення Smart системи — 15–25% від місячного рахунку. Для великих об'єктів — до 35%.</p></div>
+      <div class="info-box"><h4>⚙️ Монтаж</h4><p>Встановлення в розподільний щит за 3–5 годин. Не потребує відключення приміщення. Гарантія 3 роки.</p></div>
+      <div class="info-box"><h4>🖥️ Без хмари</h4><p>Локальна обробка даних на Home Assistant Server — система працює навіть без інтернету.</p></div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:0 70px 80px;">
+    <h2>Зробіть ваш будинок розумним</h2>
+    <p style="color:#666;max-width:500px;margin:0 auto 24px;">Безкоштовна консультація та підбір обладнання під ваш об'єкт.</p>
+    <button class="btn" style="font-size:16px;padding:16px 40px;" onclick="openOrder('Консультація — Smart системи')">Замовити консультацію</button>
+  </div>
+  <section class="footer">
+    <div><h2 style="color:#fff;">Контакти</h2><p>Email: infoecotech@gmail.com</p><br><p>Телефон: +38 (050) 185-59-57</p><br><p>Україна, Полтава</p></div>
+    <div><h2 style="color:#fff;">Написати нам</h2><form onsubmit="event.preventDefault();alert('Повідомлення надіслано!')"><input type="text" placeholder="Ваше ім'я" required><input type="email" placeholder="Email" required><textarea placeholder="Питання або побажання"></textarea><button class="btn">Відправити</button></form></div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     ARTICLE — ЯК ПРАЦЮЮТЬ СОНЯЧНІ ПАНЕЛІ
+═══════════════════════════════════════ -->
+<div class="page" id="page-article-solar">
+  <div class="article-hero" style="background-image:url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=1800&q=80')">
+    <div class="article-hero-content">
+      <button class="back-btn" onclick="showPage('home')">← До блогу</button>
+      <h1>Як працюють сонячні панелі</h1>
+      <p class="article-meta">☀️ Сонячна енергія &nbsp;·&nbsp; 8 хв читання</p>
+    </div>
+  </div>
+  <div class="article-body">
+    <p>Сонячна панель — один із найпростіших і найнадійніших пристроїв у сучасній енергетиці. Жодних рухомих деталей, жодних витратних матеріалів, тихий режим цілодобово. Але як саме сонячне світло перетворюється на струм у вашій розетці?</p>
+    <h2>Фотоелектричний ефект: базова фізика</h2>
+    <p>Основу будь-якої сонячної панелі складає кремнієвий напівпровідник. Коли фотон — частинка світла — потрапляє на кремнієвий атом, він вибиває електрон із кристалічної ґратки. Цей вільний електрон починає рухатись у полі p-n переходу і породжує електричний струм. Саме це явище, відкрите ще 1839 року Едмоном Беккерелем, лежить в основі всіх сонячних панелей.</p>
+    <img class="article-img" src="https://images.unsplash.com/photo-1566093097221-ac2335b09e70?auto=format&fit=crop&w=1200&q=80" alt="Сонячні панелі на даху будинку">
+    <h2>З чого складається сонячна система?</h2>
+    <ul>
+      <li><strong>Фотоелектричні панелі</strong> — генерують постійний струм (DC) із сонячного світла.</li>
+      <li><strong>Інвертор</strong> — перетворює постійний струм на змінний 220 В (AC).</li>
+      <li><strong>Акумуляторний блок (опційно)</strong> — зберігає надлишок енергії для використання вночі або при відключеннях.</li>
+      <li><strong>Лічильник обліку</strong> — фіксує вироблену і спожиту енергію.</li>
+      <li><strong>Система моніторингу</strong> — показує виробіток і стан обладнання в реальному часі.</li>
+    </ul>
+    <div class="article-callout">
+      <p>💡 <strong>Факт:</strong> Сучасні панелі досягають ККД 23,6% — тобто з кожних 10 Вт сонячного випромінювання 2,36 Вт перетворюється на електрику. Для порівняння: у 2010 році найкращий показник був 17%.</p>
+    </div>
+    <h2>Скільки електрики виробляє система?</h2>
+    <p>У середньому для Полтавської області: 1 кВт встановленої потужності виробляє 1100–1200 кВт·год на рік. Система потужністю 5 кВт дасть близько 5500 кВт·год — цього вистачить для середнього будинку.</p>
+    <div class="article-callout">
+      <p>📊 <strong>Реальний кейс EcoTech:</strong> Будинок у Полтаві, 120 м², система 5 кВт. Рахунок за електрику до встановлення: ~3200 грн/міс. Після: ~250 грн/міс. Окупність — 5 років.</p>
+    </div>
+    <div style="margin-top:40px;text-align:center;">
+      <h3 style="font-family:'Playfair Display',serif;font-size:24px;color:var(--dark-brown);margin-bottom:16px;">Хочете розрахунок для свого будинку?</h3>
+      <button class="btn" style="font-size:15px;padding:15px 36px;" onclick="openOrder('Консультація після статті — Сонячні панелі')">Замовити безкоштовну консультацію</button>
+    </div>
+  </div>
+  <section class="footer">
+    <div><h2 style="color:#fff;">Контакти</h2><p>Email: infoecotech@gmail.com</p><br><p>Телефон: +38 (050) 185-59-57</p><br><p>Україна, Полтава</p></div>
+    <div><h2 style="color:#fff;">Написати нам</h2><form onsubmit="event.preventDefault();alert('Повідомлення надіслано!')"><input type="text" placeholder="Ваше ім'я" required><input type="email" placeholder="Email" required><textarea placeholder="Питання або побажання"></textarea><button class="btn">Відправити</button></form></div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     ARTICLE — РЕЗЕРВНЕ ЖИВЛЕННЯ 2026
+═══════════════════════════════════════ -->
+<div class="page" id="page-article-ups">
+  <div class="article-hero" style="background-image:url('https://images.unsplash.com/photo-1620714223084-8fcacc2dbed4?auto=format&fit=crop&w=1800&q=80')">
+    <div class="article-hero-content">
+      <button class="back-btn" onclick="showPage('home')">← До блогу</button>
+      <h1>Резервне живлення 2026: що обрати для квартири і будинку</h1>
+      <p class="article-meta">🔋 Резервне живлення &nbsp;·&nbsp; 10 хв читання</p>
+    </div>
+  </div>
+  <div class="article-body">
+    <p>Відключення електрики залишаються актуальним викликом для українців. Ринок резервного живлення за останні роки значно змінився: з'явились доступні LFP-акумулятори, портативні станції нового покоління та розумні гібридні інвертори.</p>
+    <h2>Чому генератор — не найкраще рішення?</h2>
+    <p>Бензиновий генератор має серйозні мінуси: шум (60–80 дБА), витрати на паливо, необхідність провітрювання. Для квартири — взагалі неприйнятний варіант. Акумуляторні системи позбавлені всіх цих проблем.</p>
+    <div class="article-callout">
+      <p>⚡ <strong>Важливо:</strong> Сучасна LFP-акумуляторна система при ціні 8 000–25 000 грн окупається за 2–3 роки порівняно з витратами на бензиновий генератор (паливо + сервіс).</p>
+    </div>
+    <img class="article-img" src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=1200&q=80" alt="Акумуляторна система для будинку">
+    <div class="article-callout">
+      <p>🔑 <strong>Головний висновок:</strong> У 2026 році найкраще співвідношення ціна/якість мають LFP-акумулятори Pylontech та EcoFlow із гібридними інверторами Deye або Growatt. Уникайте кислотних (AGM/GEL) акумуляторів — вони дешевші, але вдвічі менш довговічні.</p>
+    </div>
+    <div style="margin-top:40px;text-align:center;">
+      <h3 style="font-family:'Playfair Display',serif;font-size:24px;color:var(--dark-brown);margin-bottom:16px;">Підберемо систему під ваш бюджет</h3>
+      <button class="btn" style="font-size:15px;padding:15px 36px;" onclick="openOrder('Консультація після статті — Резервне живлення')">Безкоштовна консультація</button>
+    </div>
+  </div>
+  <section class="footer">
+    <div><h2 style="color:#fff;">Контакти</h2><p>Email: infoecotech@gmail.com</p><br><p>Телефон: +38 (050) 185-59-57</p><br><p>Україна, Полтава</p></div>
+    <div><h2 style="color:#fff;">Написати нам</h2><form onsubmit="event.preventDefault();alert('Повідомлення надіслано!')"><input type="text" placeholder="Ваше ім'я" required><input type="email" placeholder="Email" required><textarea placeholder="Питання або побажання"></textarea><button class="btn">Відправити</button></form></div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     ARTICLE — SMART КЕРУВАННЯ ЕНЕРГІЄЮ
+═══════════════════════════════════════ -->
+<div class="page" id="page-article-smart">
+  <div class="article-hero" style="background-image:url('https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=1800&q=80')">
+    <div class="article-hero-content">
+      <button class="back-btn" onclick="showPage('home')">← До блогу</button>
+      <h1>Smart керування енергією: автоматизація споживання через смартфон</h1>
+      <p class="article-meta">🤖 Автоматизація &nbsp;·&nbsp; 9 хв читання</p>
+    </div>
+  </div>
+  <div class="article-body">
+    <p>Уявіть будинок, де бойлер сам вмикається, коли сонячні панелі виробляють максимум безкоштовної електрики. Де кондиціонер охолоджує будинок до дешевого денного тарифу, а пральна машина запускається о 23:00 за нічним. Це реальність 2026 року — і вона доступна вже від 3500 грн за базовий комплект.</p>
+    <img class="article-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="Smart дашборд управління енергією">
+    <div class="article-callout">
+      <p>🤖 <strong>Реальний приклад автоматизації:</strong> Клієнт з Полтави, система 5 кВт + Home Assistant. Бойлер 2 кВт вмикається автоматично о 10:00–14:00, коли генерація максимальна. Економія — 700 грн/міс лише на підігріві води.</p>
+    </div>
+    <div style="margin-top:40px;text-align:center;">
+      <h3 style="font-family:'Playfair Display',serif;font-size:24px;color:var(--dark-brown);margin-bottom:16px;">Автоматизуйте ваш будинок</h3>
+      <button class="btn" style="font-size:15px;padding:15px 36px;" onclick="openOrder('Консультація після статті — Smart системи')">Замовити Smart-систему</button>
+    </div>
+  </div>
+  <section class="footer">
+    <div><h2 style="color:#fff;">Контакти</h2><p>Email: infoecotech@gmail.com</p><br><p>Телефон: +38 (050) 185-59-57</p><br><p>Україна, Полтава</p></div>
+    <div><h2 style="color:#fff;">Написати нам</h2><form onsubmit="event.preventDefault();alert('Повідомлення надіслано!')"><input type="text" placeholder="Ваше ім'я" required><input type="email" placeholder="Email" required><textarea placeholder="Питання або побажання"></textarea><button class="btn">Відправити</button></form></div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 1 — СОНЯЧНА СТАНЦІЯ ДЛЯ БУДИНКУ
+═══════════════════════════════════════ -->
+<div class="page" id="page-solar">
+  <div class="sub-hero" style="background-image:url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=1800&q=80')">
+    <div class="sub-hero-content">
+      <button class="back-btn" onclick="showPage('home')">← Повернутись</button>
+      <h1>Сонячна станція для будинку</h1>
+      <p>Власна генерація електроенергії — найнадійніший захист від відключень та зростання тарифів.</p>
+    </div>
+  </div>
+  <div class="consult-section">
+    <div class="consult-grid">
+      <div class="consult-text">
+        <h2>Як це працює і навіщо встановлювати?</h2>
+        <p>Домашня сонячна електростанція перетворює сонячне світло на постійний струм за допомогою фотоелектричних панелей. Інвертор конвертує його на змінний струм 220 В, яким живиться вся техніка будинку.</p>
+        <p>Для дачного або невеликого будинку достатньо станції потужністю 1–3 кВт. Панелі монтуються на даху з нахилом 30–45°. Навіть у хмарну погоду система виробляє до 30% від номінальної потужності.</p>
+        <p>Термін окупності при поточних тарифах — 4–6 років. Гарантійний ресурс панелей — 25 років. Безшумна робота, мінімальне обслуговування.</p>
+      </div>
+      <div class="consult-img" style="height:420px;">
+        <img src="https://images.unsplash.com/photo-1566093097221-ac2335b09e70?auto=format&fit=crop&w=900&q=80" alt="Сонячні панелі на даху">
+      </div>
+    </div>
+    <div class="info-boxes">
+      <div class="info-box"><h4>📍 Де встановлювати</h4><p>Скатний або плаский дах, фасад, земельна ділянка. Оптимальний нахил 30–45°, орієнтація — південь. Мінімальна площа для 1 кВт — 5 м².</p></div>
+      <div class="info-box"><h4>⚡ Що отримуєте</h4><p>Власна електрика вдень, заряд акумуляторів на ніч, продаж надлишку, незалежність від відключень і тарифів.</p></div>
+      <div class="info-box"><h4>🔧 Монтаж</h4><p>Виїзд фахівця → обмір і проєкт → монтаж за 1–2 дні → підключення до мережі → налаштування моніторингу. Гарантія 5 років.</p></div>
+    </div>
+  </div>
+  <div class="catalog-section">
+    <h2>Готові рішення — каталог</h2>
+    <p class="sub-desc">Підберіть систему під площу та споживання вашого будинку. Ціни з урахуванням монтажу під ключ.</p>
+    <div class="catalog-grid">
+
+      <!-- 1 -->
+      <div class="prod-card">
+        <img src="https://intersolar.ua/assets/images/products/1451/small2/solalala.jpg" alt="Стартова сонячна панель 400 Вт для дачі">
+        <div class="prod-body">
+          <h3>Дача «Старт» — 1 панель 400 Вт</h3>
+          <ul class="prod-spec">
+            <li>Панель: 1×Risen 400 Вт моно</li>
+            <li>Контролер MPPT: 30А, 12/24В</li>
+            <li>АКБ: 1×AGM 100 Аг (1,2 кВт·год)</li>
+            <li>Виробіток: ~40–50 кВт·год/міс</li>
+            <li>Підходить: дача, сарай, освітлення</li>
+          </ul>
+          <div class="prod-price">8 900 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Дача Старт — 1 панель 400 Вт')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="prod-card">
+        <img src="https://alteco.in.ua/wp-content/uploads/2013/02/picture_for_set_1-5.jpg" alt="Гібридна система 2 панелі 800 Вт для будинку">
+        <div class="prod-body">
+          <h3>Будинок «Базовий» — 2 панелі 800 Вт</h3>
+          <ul class="prod-spec">
+            <li>Панелі: 2×LONGi 400 Вт моно</li>
+            <li>Інвертор гібридний: Deye 1 кВт</li>
+            <li>АКБ: LFP 50 Аг / 1,2 кВт·год</li>
+            <li>Виробіток: ~80–100 кВт·год/міс</li>
+            <li>Підходить: мала дача, гараж, котедж</li>
+          </ul>
+          <div class="prod-price">18 500 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Будинок Базовий — 2 панелі 800 Вт')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="prod-card">
+        <img src="https://images.prom.ua/7257748276_w640_h640_paneli-solnechnye-dokio.jpg" alt="Сонячна система 4 панелі 1.6 кВт для будинку">
+        <div class="prod-body">
+          <h3>Будинок «Комфорт» — 4 панелі 1,6 кВт</h3>
+          <ul class="prod-spec">
+            <li>Панелі: 4×Risen 400 Вт моно</li>
+            <li>Інвертор: Growatt SPF 2000 2 кВт</li>
+            <li>АКБ: AGM 200 Аг (2,4 кВт·год)</li>
+            <li>Виробіток: ~160–200 кВт·год/міс</li>
+            <li>Підходить: будинок 60–80 м²</li>
+          </ul>
+          <div class="prod-price">32 000 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Будинок Комфорт — 4 панелі 1,6 кВт')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="prod-card">
+        <img src="https://images.prom.ua/7257737597_w640_h640_paneli-solnechnye-dokio.jpg" alt="Сонячна гібридна система 6 панелей 2.4 кВт">
+        <div class="prod-body">
+          <h3>Будинок «Оптимум» — 6 панелей 2,4 кВт</h3>
+          <ul class="prod-spec">
+            <li>Панелі: 6×Jinko 400 Вт моно</li>
+            <li>Інвертор гібридний: Deye 3 кВт</li>
+            <li>АКБ: Pylontech US2000 2,4 кВт·год</li>
+            <li>Виробіток: ~240–300 кВт·год/міс</li>
+            <li>Підходить: будинок 80–120 м²</li>
+          </ul>
+          <div class="prod-price">54 000 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Будинок Оптимум — 6 панелей 2,4 кВт')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="prod-card">
+        <img src="file:///C:/Users/Admin/Downloads/1pcs%20High%20Efficiency%20280w%20330w%20370w%20440w%20450w%20530w%20Solar%20Panel%20With%2025%20Years%20Guarantee_files/Sa2c812080aef47d990ae9e47e8198eb4o.jpg_960x960q75.jpg_.avif" alt="Сонячна станція 10 панелей 4 кВт для будинку">
+        <div class="prod-body">
+          <h3>Будинок «Незалежність» — 10 панелей 4 кВт</h3>
+          <ul class="prod-spec">
+            <li>Панелі: 10×LONGi 400 Вт Hi-MO5</li>
+            <li>Інвертор гібридний: Growatt 5 кВт</li>
+            <li>АКБ: Pylontech US3000C 3,5 кВт·год</li>
+            <li>Виробіток: ~420–500 кВт·год/міс</li>
+            <li>Підходить: будинок 120–160 м²</li>
+          </ul>
+          <div class="prod-price">89 000 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Будинок Незалежність — 10 панелей 4 кВт')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="prod-card">
+        <img src="https://content1.rozetka.com.ua/goods/images/big/525815988.webp" alt="Сонячна станція 16 панелей 6 кВт повна автономія">
+        <div class="prod-body">
+          <h3>Будинок «Повна автономія» — 16 панелей 6,4 кВт</h3>
+          <ul class="prod-spec">
+            <li>Панелі: 16×Jinko 400 Вт Tiger Neo</li>
+            <li>Інвертор: Huawei SUN2000-6KTL</li>
+            <li>АКБ: LUNA2000 10 кВт·год</li>
+            <li>Виробіток: ~640–780 кВт·год/міс</li>
+            <li>Підходить: будинок 160–200 м²</li>
+          </ul>
+          <div class="prod-price">138 000 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Будинок Повна автономія — 16 панелей 6,4 кВт')">Замовити онлайн</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <section class="footer">
+    <div><h2 style="color:#fff;">Контакти</h2><p>Email: infoecotech@gmail.com</p><br><p>Телефон: +38 (050) 185-59-57</p><br><p>Україна, Полтава</p></div>
+    <div><h2 style="color:#fff;">Написати нам</h2><form onsubmit="event.preventDefault();alert('Повідомлення надіслано!')"><input type="text" placeholder="Ваше ім'я" required><input type="email" placeholder="Email" required><textarea placeholder="Питання або побажання"></textarea><button class="btn">Відправити</button></form></div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 2 — СИСТЕМА ДЛЯ КВАРТИРИ
+═══════════════════════════════════════ -->
+<div class="page" id="page-apartment">
+  <div class="sub-hero" style="background-image:url('https://images.unsplash.com/photo-1620714223084-8fcacc2dbed4?auto=format&fit=crop&w=1800&q=80')">
+    <div class="sub-hero-content">
+      <button class="back-btn" onclick="showPage('home')">← Повернутись</button>
+      <h1>Система резервного живлення для квартири</h1>
+      <p>Компактні рішення — світло, інтернет та побутова техніка під час відключень.</p>
+    </div>
+  </div>
+  <div class="consult-section">
+    <div class="consult-grid">
+      <div class="consult-text">
+        <h2>Що таке квартирна система резервного живлення?</h2>
+        <p>Квартира не дозволяє встановити повноцінну сонячну станцію, але можна змонтувати компактну систему з акумуляторного блоку та інвертора або придбати готову портативну станцію. Вона заряджається від мережі або балконної міні-панелі й миттєво вмикається при зникненні напруги.</p>
+        <p>Для середньої квартири достатньо 1–2 кВт·год для освітлення, Wi-Fi, телевізора та зарядки гаджетів на 6–10 годин. Жодних дозволів від ОСББ — система повністю незалежна.</p>
+        <p>Сучасні акумуляторні системи займають місце невеликої тумбочки, не шумлять і не виділяють шкідливих газів. Балконні панелі 100–400 Вт дозволяють заряджатися навіть без мережі.</p>
+      </div>
+      <div class="consult-img" style="height:420px;">
+        <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=900&q=80" alt="Акумулятор для квартири">
+      </div>
+    </div>
+    <div class="info-boxes">
+      <div class="info-box"><h4>📍 Де розмістити</h4><p>У кімнаті, коридорі або на балконі. Портативні станції вагою 5–15 кг не потребують фундаменту. Балконні панелі — на поручнях або під кутом.</p></div>
+      <div class="info-box"><h4>⚡ Що отримуєте</h4><p>Автономне живлення 4–12 год, захист від стрибків напруги, тихий режим без шуму генератора, можливість балконних панелей.</p></div>
+      <div class="info-box"><h4>🔧 Монтаж</h4><p>Портативні — без монтажу. Стаціонарні — підключення за 2–3 години. Не потребує погодження. Гарантія на акумулятор — 3–5 років.</p></div>
+    </div>
+  </div>
+  <div class="catalog-section">
+    <h2>Каталог рішень для квартири</h2>
+    <p class="sub-desc">Готові комплекти для різного бюджету і тривалості автономії. Доставка та підключення включені.</p>
+    <div class="catalog-grid">
+
+      <!-- 1 -->
+      <div class="prod-card">
+        <img src="https://ecoflowukraine.com/content/uploads/images/512_app.jpg" alt="Портативна зарядна станція EcoFlow RIVER 2 512 Вт·год">
+        <div class="prod-body">
+          <h3>EcoFlow RIVER 2 — 512 Вт·год</h3>
+          <ul class="prod-spec">
+            <li>Ємність: 512 Вт·год (LFP)</li>https://ecoflowukraine.com/content/uploads/images/512_app.jpg
+            <li>Потужність виходу: 600 Вт (пік 1200 Вт)</li>
+            <li>Зарядка від мережі: 0→100% за 60 хв</li>
+            <li>Вага: 7,7 кг</li>
+            <li>Розетки: 2×AC + USB-A/C</li>
+          </ul>
+          <div class="prod-price">9 900 грн <span>+ доставка</span></div>
+          <button class="order-btn" onclick="openOrder('EcoFlow RIVER 2 — 512 Вт·год')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="prod-card">
+        <img src="https://norfin.com.ua/content/images/18/536x357l50nn0/zaryadnaya-stantsiya-ecoflow-delta-2-1024-vtch-55695689443380.jpg" alt="Портативна станція EcoFlow DELTA 2 1024 Вт·год">
+        <div class="prod-body">
+          <h3>EcoFlow DELTA 2 — 1 кВт·год</h3>
+          <ul class="prod-spec">
+            <li>Ємність: 1024 Вт·год (LFP)</li>
+            <li>Потужність виходу: 1800 Вт</li>
+            <li>Зарядка від мережі: 0→80% за 50 хв</li>
+            <li>Вага: 12 кг</li>
+            <li>Автономія: 8–12 год (базове споживання)</li>
+          </ul>
+          <div class="prod-price">17 500 грн <span>+ доставка</span></div>
+          <button class="order-btn" onclick="openOrder('EcoFlow DELTA 2 — 1 кВт·год')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="prod-card">
+        <img src="https://content.rozetka.com.ua/goods/images/big/637368230.png" alt="UPS Luxeon 1 кВт + 2 акумулятори AGM 75 Аг">
+        <div class="prod-body">
+          <h3>Luxeon UPS 1 кВт + 2×AGM 75 Аг</h3>
+          <ul class="prod-spec">
+            <li>Інвертор: Luxeon UPS-1000ZY 1 кВт</li>
+            <li>АКБ: 2×75 Аг AGM (1,8 кВт·год)</li>
+            <li>Зарядка від мережі: 6–8 год</li>
+            <li>Автономія: 4–6 год (світло + Wi-Fi + ТБ)</li>
+            <li>Вага системи: ~40 кг</li>
+          </ul>
+          <div class="prod-price">8 400 грн <span>з підключенням</span></div>
+          <button class="order-btn" onclick="openOrder('Luxeon UPS 1 кВт + 2×AGM 75 Аг')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="prod-card">
+        <img src="https://content2.rozetka.com.ua/goods/images/big/597439145.png" alt="Балконна сонячна панель 200 Вт + зарядна станція">
+        <div class="prod-body">
+          <h3>Балконний міні-комплект 200 Вт + 512 Вт·год</h3>
+          <ul class="prod-spec">
+            <li>Панель: 1×200 Вт монокристал, напівгнучка</li>
+            <li>Станція: EcoFlow RIVER 2 512 Вт·год</li>
+            <li>Кріплення: без свердління поручнів</li>
+            <li>Заряд від сонця: 3–4 год (у сонячний день)</li>
+            <li>Автономія: 6–8 год базового споживання</li>
+          </ul>
+          <div class="prod-price">14 900 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Балконний міні-комплект 200 Вт + 512 Вт·год')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="prod-card">
+        <img src="https://content1.rozetka.com.ua/goods/images/big/653849565.png" alt="Стаціонарний ДБЖ Pylontech + Deye 2 кВт для квартири">
+        <div class="prod-body">
+          <h3>Стаціонарний комплект — Pylontech 2,4 кВт·год + Deye 2 кВт</h3>
+          <ul class="prod-spec">
+            <li>АКБ: Pylontech US2000 Plus 2,4 кВт·год LFP</li>
+            <li>Інвертор: Deye SUN-2K-SG01 2 кВт</li>
+            <li>Перемикання: менш ніж 20 мс</li>
+            <li>Монтаж: на стіну або підлогу</li>
+            <li>Розширення: до 3 блоків АКБ</li>
+          </ul>
+          <div class="prod-price">28 500 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Pylontech 2,4 кВт·год + Deye 2 кВт')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="prod-card">
+        <img src="https://solarpanels.zp.ua/image/catalog/15_079aa.jpg" alt="Комплект балконні панелі 400 Вт + акумулятор 1 кВт·год">
+        <div class="prod-body">
+          <h3>Балкон «Плюс» — 2 панелі 400 Вт + 1 кВт·год</h3>
+          <ul class="prod-spec">
+            <li>Панелі: 2×200 Вт монокристал</li>
+            <li>Станція: EcoFlow DELTA 2 1 кВт·год</li>
+            <li>Заряд від сонця: 2,5–3 год</li>
+            <li>Автономія: 10–14 год базового споживання</li>
+            <li>Без дозволів і переробки електрики</li>
+          </ul>
+          <div class="prod-price">23 900 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Балкон Плюс — 2 панелі 400 Вт + 1 кВт·год')">Замовити онлайн</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <section class="footer">
+    <div><h2 style="color:#fff;">Контакти</h2><p>Email: infoecotech@gmail.com</p><br><p>Телефон: +38 (050) 185-59-57</p><br><p>Україна, Полтава</p></div>
+    <div><h2 style="color:#fff;">Написати нам</h2><form onsubmit="event.preventDefault();alert('Повідомлення надіслано!')"><input type="text" placeholder="Ваше ім'я" required><input type="email" placeholder="Email" required><textarea placeholder="Питання або побажання"></textarea><button class="btn">Відправити</button></form></div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 3 — SMART ЕНЕРГОМОНІТОРИНГ
+═══════════════════════════════════════ -->
+<div class="page" id="page-smart">
+  <div class="sub-hero" style="background-image:url('https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=1800&q=80')">
+    <div class="sub-hero-content">
+      <button class="back-btn" onclick="showPage('home')">← Повернутись</button>
+      <h1>Smart енергомоніторинг</h1>
+      <p>Повний контроль над виробленням і споживанням енергії — з будь-якої точки світу через смартфон.</p>
+    </div>
+  </div>
+  <div class="consult-section">
+    <div class="consult-grid">
+      <div class="consult-text">
+        <h2>Навіщо моніторинг і як він працює?</h2>
+        <p>Smart енергомоніторинг — система датчиків і хмарних сервісів, яка в реальному часі показує: скільки виробляють панелі, скільки споживає будинок, який рівень заряду акумуляторів і скільки ви вже заощадили.</p>
+        <p>Система встановлюється в розподільний щит: smart-лічильник читає споживання кожної лінії і передає дані у хмарний або локальний додаток. Через додаток ви бачите графіки, отримуєте сповіщення та керуєте розумними розетками.</p>
+        <p>Встановлення займає 3–5 годин. Підходить навіть без сонячних панелей — просто щоб знати, куди йде ваша електрика.</p>
+      </div>
+      <div class="consult-img" style="height:420px;">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80" alt="Smart моніторинг">
+      </div>
+    </div>
+    <div class="info-boxes">
+      <div class="info-box"><h4>📱 Мобільний додаток</h4><p>Графіки споживання, сповіщення, керування реле та розетками, архів за рік. Підтримка iOS і Android.</p></div>
+      <div class="info-box"><h4>📊 Аналітика</h4><p>Виявлення «прихованих» споживачів, автоматичне планування включення побутових приладів, щомісячні звіти.</p></div>
+      <div class="info-box"><h4>🔗 Інтеграція</h4><p>Google Home, Apple HomeKit, Amazon Alexa. API для власних дашбордів. Підтримка Modbus, MQTT.</p></div>
+    </div>
+  </div>
+  <div class="catalog-section">
+    <h2>Обладнання для моніторингу</h2>
+    <p class="sub-desc">Від простих лічильників до повноцінних систем управління будинком. Усі ціни з налаштуванням.</p>
+    <div class="catalog-grid">
+
+      <!-- 1 -->
+      <div class="prod-card">
+        <img src="https://images.prom.ua/6316670592_w640_h320_umnyj-rele-shelly.jpg" alt="Shelly Plus 1PM розумне реле з вимірюванням потужності">
+        <div class="prod-body">
+          <h3>Shelly Plus 1PM — розумне реле</h3>
+          <ul class="prod-spec">
+            <li>Вимірювання: 1 лінія до 16А</li>
+            <li>Підключення: Wi-Fi 2.4 ГГц</li>
+            <li>Монтаж: у підрозетник або щит</li>
+            <li>Інтеграція: Home Assistant, Google Home</li>
+            <li>Сумісний: будь-яка електрика 220В</li>
+          </ul>
+          <div class="prod-price">890 грн <span>+ монтаж 300 грн</span></div>
+          <button class="order-btn" onclick="openOrder('Shelly Plus 1PM — розумне реле')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="prod-card">
+        <img src="https://content2.rozetka.com.ua/goods/images/big/584286899.jpg" alt="Shelly Pro 3EM трифазний лічильник енергії">
+        <div class="prod-body">
+          <h3>Shelly Pro 3EM — 3-фазний лічильник</h3>
+          <ul class="prod-spec">
+            <li>Вимірювання: 3 фази, до 120А кожна</li>
+            <li>Точність: ±0,5%</li>
+            <li>Підключення: Wi-Fi + LAN</li>
+            <li>Монтаж: DIN-рейка в щит</li>
+            <li>Дані: онлайн-графіки в Shelly App</li>
+          </ul>
+          <div class="prod-price">3 200 грн <span>+ монтаж 600 грн</span></div>
+          <button class="order-btn" onclick="openOrder('Shelly Pro 3EM — 3-фазний лічильник')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="prod-card">
+        <img src="https://content1.rozetka.com.ua/goods/images/big/496135902.png" alt="Growatt Wi-Fi модуль ShinePhone моніторинг інвертора">
+        <div class="prod-body">
+          <h3>Growatt Wi-Fi Stick + ShinePhone</h3>
+          <ul class="prod-spec">
+            <li>Сумісний: всі інвертори Growatt</li>
+            <li>Оновлення даних: кожні 5 сек</li>
+            <li>Хмара: ShineServer безкоштовно</li>
+            <li>Підключення: вставляється в інвертор</li>
+            <li>Збереження даних: 5 років</li>
+          </ul>
+          <div class="prod-price">1 800 грн <span>+ налаштування 400 грн</span></div>
+          <button class="order-btn" onclick="openOrder('Growatt Wi-Fi Stick + ShinePhone')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="prod-card">
+        <img src="https://solar.huawei.com/admin/asset/v1/pro/view/83be25c4ee88454f96488324a94640cf.png" alt="Huawei SmartDongle WLAN FusionSolar моніторинг">
+        <div class="prod-body">
+          <h3>Huawei SmartDongle WLAN + FusionSolar</h3>
+          <ul class="prod-spec">
+            <li>Сумісний: Huawei SUN2000 всі версії</li>
+            <li>Оновлення: кожну хвилину</li>
+            <li>AI-прогноз: виробіток на 48 год</li>
+            <li>Сповіщення: несправності і погода</li>
+            <li>Безкоштовний хмарний сервіс</li>
+          </ul>
+          <div class="prod-price">1 400 грн <span>+ монтаж 300 грн</span></div>
+          <button class="order-btn" onclick="openOrder('Huawei SmartDongle WLAN + FusionSolar')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="prod-card">
+        <img src="https://blackdevice.com/wp-content/uploads/2025/08/home-assistant-raspberrypi.jpg" alt="Home Assistant сервер Raspberry Pi 5 локальна автоматизація">
+        <div class="prod-body">
+          <h3>Home Assistant на Raspberry Pi 5</h3>
+          <ul class="prod-spec">
+            <li>Мікро-ПК: Raspberry Pi 5 4 ГБ</li>
+            <li>ПЗ: Home Assistant OS, Energy Dashboard</li>
+            <li>Інтеграції: 3000+ пристроїв</li>
+            <li>Локальна обробка: без хмари</li>
+            <li>Автоматизація: сценарії, розклад, тригери</li>
+          </ul>
+          <div class="prod-price">7 200 грн <span>з налаштуванням</span></div>
+          <button class="order-btn" onclick="openOrder('Home Assistant на Raspberry Pi 5')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="prod-card">
+        <img src="https://content.rozetka.com.ua/goods/images/big_tile/499400025.jpg" alt="Комплект розумних розеток Shelly Plus Plug S 3 штуки">
+        <div class="prod-body">
+          <h3>Комплект Smart розеток Shelly Plus Plug S (3 шт)</h3>
+          <ul class="prod-spec">
+            <li>Вимірювання потужності: кожна розетка</li>
+            <li>Управління: App, голос, розклад</li>
+            <li>Протокол: Wi-Fi 2.4 ГГц</li>
+            <li>Струм: до 16А / 3680 Вт</li>
+            <li>Сумісність: Alexa, Google Home, HA</li>
+          </ul>
+          <div class="prod-price">2 100 грн <span>3 шт + конфігурація</span></div>
+          <button class="order-btn" onclick="openOrder('Комплект Smart розеток Shelly Plus Plug S (3 шт)')">Замовити онлайн</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <section class="footer">
+    <div><h2 style="color:#fff;">Контакти</h2><p>Email: infoecotech@gmail.com</p><br><p>Телефон: +38 (050) 185-59-57</p><br><p>Україна, Полтава</p></div>
+    <div><h2 style="color:#fff;">Написати нам</h2><form onsubmit="event.preventDefault();alert('Повідомлення надіслано!')"><input type="text" placeholder="Ваше ім'я" required><input type="email" placeholder="Email" required><textarea placeholder="Питання або побажання"></textarea><button class="btn">Відправити</button></form></div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 4 — ТЕПЛОВІ НАСОСИ
+═══════════════════════════════════════ -->
+<div class="page" id="page-heatpump">
+  <div class="sub-hero" style="background-image:url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1800&q=80')">
+    <div class="sub-hero-content">
+      <button class="back-btn" onclick="showPage('home')">← Повернутись</button>
+      <h1>Теплові насоси</h1>
+      <p>Опалення, охолодження та гаряча вода за 1/3 вартості газу — без котла, без газу, без диму.</p>
+    </div>
+  </div>
+  <div class="consult-section">
+    <div class="consult-grid">
+      <div class="consult-text">
+        <h2>Як тепловий насос замінює котел?</h2>
+        <p>Тепловий насос забирає теплову енергію з вулиці (навіть при -15°C), підсилює її компресором і передає в систему опалення. На 1 кВт спожитої електрики насос виробляє 3–4 кВт тепла — в 3–4 рази ефективніше за електробойлер.</p>
+        <p>Для будинку 80–120 м² достатньо теплового насосу 5–8 кВт. Він підключається до існуючих радіаторів або теплої підлоги, влітку охолоджує приміщення як кондиціонер.</p>
+        <p>Окупність при переході з електроопалення — 3–4 роки, з газового котла — 5–8 років. Обладнання служить 15–20 років.</p>
+      </div>
+      <div class="consult-img" style="height:420px;">
+        <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=900&q=80" alt="Тепловий насос повітря-вода">
+      </div>
+    </div>
+    <div class="info-boxes">
+      <div class="info-box"><h4>📍 Де встановлювати</h4><p>Зовнішній блок поруч із будинком. Внутрішній блок — у топковій або котельні. Мінімум місця — як бойлер.</p></div>
+      <div class="info-box"><h4>🌡️ Режими роботи</h4><p>Опалення (жовтень–квітень), охолодження (травень–вересень), нагрів ГВС цілий рік. Підтримка теплої підлоги.</p></div>
+      <div class="info-box"><h4>🔧 Монтаж</h4><p>Монтаж 2–3 дні: блоки, гідравліка, контролер. Заправка фреоном R32 (екологічний). Гарантія 2–3 роки.</p></div>
+    </div>
+  </div>
+  <div class="catalog-section">
+    <h2>Каталог теплових насосів</h2>
+    <p class="sub-desc">Повітряно-водяні інверторні системи для будинків від 50 до 250 м². Ціни з монтажем під ключ.</p>
+    <div class="catalog-grid">
+
+      <!-- 1 -->
+      <div class="prod-card">
+        <img src="https://content1.rozetka.com.ua/goods/images/big/562418643.jpg" alt="Тепловий насос повітря вода 5 кВт для будинку 60-80 м2">
+        <div class="prod-body">
+          <h3>Cooper&Hunter CH-HP5.0SIRM — 5 кВт</h3>
+          <ul class="prod-spec">
+            <li>Тип: повітря-вода інверторний</li>
+            <li>COP при A7/W35: 3,8</li>
+            <li>Площа: до 80 м²</li>
+            <li>Фреон: R32</li>
+            <li>Підключення ГВС: так (бойлер окремо)</li>
+          </ul>
+          <div class="prod-price">58 000 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Cooper&Hunter CH-HP5.0SIRM — 5 кВт')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="prod-card">
+        <img src="https://opremazagrejanje.rs/wp-content/uploads/2019/10/Toplotne-pumpe-M-Thermal-MHA-Midea-split.webp" alt="Тепловий насос повітря-вода 7 кВт будинок 100 м2">
+        <div class="prod-body">
+          <h3>Ferroli RVL2 7 кВт — будинок 100 м²</h3>
+          <ul class="prod-spec">
+            <li>Тип: повітря-вода моноблок</li>
+            <li>COP при A7/W35: 3,9</li>
+            <li>Площа: до 100 м²</li>
+            <li>Температура роботи: до -25°C</li>
+            <li>Wi-Fi модуль включено</li>
+          </ul>
+          <div class="prod-price">72 000 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Ferroli RVL2 7 кВт')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="prod-card">
+        <img src="https://air-conditioner.ua/files/1-vodonagrivach-novatec-nt-s.webp" alt="Тепловий насос AIRA Pro 9 кВт з бойлером 200 л">
+        <div class="prod-body">
+          <h3>AIRA PRO 9 кВт + бойлер 200 л</h3>
+          <ul class="prod-spec">
+            <li>Тип: спліт повітря-вода</li>
+            <li>COP при A7/W35: 4,1</li>
+            <li>Площа: до 130 м²</li>
+            <li>Бойлер ГВС 200 л: у комплекті</li>
+            <li>App: WI-FI + мобільне управління</li>
+          </ul>
+          <div class="prod-price">94 000 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('AIRA PRO 9 кВт + бойлер 200 л')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="prod-card">
+        <img src="https://aquafamily.ua/media/catalog/product/cache/d6cc1fce5e47b1ecb9e5deaa1eafc689/3/5/35156_35157_35158_mainpic_1_2.webp" alt="Бойлер-термопомпа 200 л для підігріву ГВС квартира">
+        <div class="prod-body">
+          <h3>Термопомпа-бойлер 200 л (ГВС)</h3>
+          <ul class="prod-spec">
+            <li>Тип: повітряна термопомпа-бойлер</li>
+            <li>COP: 3,5 (гарячої води)</li>
+            <li>Ємність: 200 л</li>
+            <li>Підключення: 220В / 1 фаза</li>
+            <li>Підходить: квартира, невеликий будинок</li>
+          </ul>
+          <div class="prod-price">28 500 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Термопомпа-бойлер 200 л ГВС')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="prod-card">
+        <img src="https://sils.in.ua/wp-content/uploads/2024/04/70-m%C2%B3-48.png" alt="Тепловий насос Daikin Altherma 12 кВт будинок 160 м2">
+        <div class="prod-body">
+          <h3>Daikin Altherma 3 — 12 кВт</h3>
+          <ul class="prod-spec">
+            <li>Тип: повітря-вода моноблок</li>
+            <li>COP при A7/W35: 4,65</li>
+            <li>Площа: до 180 м²</li>
+            <li>Фреон: R32</li>
+            <li>Smartgrid Ready: так</li>
+          </ul>
+          <div class="prod-price">148 000 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Daikin Altherma 3 — 12 кВт')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="prod-card">
+        <img src="https://media.alterair.ua/storage/uploads/shop-products-pics/vaillant_geotherm_vws_2-1000x800-min.webp" alt="Геотермальний тепловий насос 16 кВт грунт-вода">
+        <div class="prod-body">
+          <h3>Геотермальна система — 16 кВт (ґрунт-вода)</h3>
+          <ul class="prod-spec">
+            <li>Тип: геотермальний ґрунт-вода</li>
+            <li>COP при B0/W35: 5,3</li>
+            <li>Площа: до 250 м²</li>
+            <li>Буріння: 100–130 м (включено)</li>
+            <li>Сервіс: 30 000+ годин до ТО</li>
+          </ul>
+          <div class="prod-price">218 000 грн <span>з бурінням і монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Геотермальна система 16 кВт ґрунт-вода')">Замовити онлайн</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <section class="footer">
+    <div><h2 style="color:#fff;">Контакти</h2><p>Email: infoecotech@gmail.com</p><br><p>Телефон: +38 (050) 185-59-57</p><br><p>Україна, Полтава</p></div>
+    <div><h2 style="color:#fff;">Написати нам</h2><form onsubmit="event.preventDefault();alert('Повідомлення надіслано!')"><input type="text" placeholder="Ваше ім'я" required><input type="email" placeholder="Email" required><textarea placeholder="Питання або побажання"></textarea><button class="btn">Відправити</button></form></div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 5 — ВІТРОГЕНЕРАТОРИ
+═══════════════════════════════════════ -->
+<div class="page" id="page-wind">
+  <div class="sub-hero" style="background-image:url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1800&q=80')">
+    <div class="sub-hero-content">
+      <button class="back-btn" onclick="showPage('home')">← Повернутись</button>
+      <h1>Вітрогенератори</h1>
+      <p>Вітер генерує енергію 24/7, навіть уночі та взимку — ідеальне доповнення до сонячних панелей.</p>
+    </div>
+  </div>
+  <div class="consult-section">
+    <div class="consult-grid">
+      <div class="consult-text">
+        <h2>Коли вітрогенератор виправданий?</h2>
+        <p>Вітрогенератор доцільний там, де середньорічна швидкість вітру перевищує 4–5 м/с — відкриті поля, підвищена місцевість, береги водойм. Малий вітряк 300–1000 Вт виробляє 500–3000 кВт·год на рік. На відміну від сонячних панелей, вітряк генерує вночі та взимку.</p>
+        <p>Щоглу встановлюють на відкритому майданчику (мінімум 2 висоти щогли від будівель). Стандартна висота — 6–12 м. Система автоматично балансує вітрову і сонячну генерацію.</p>
+        <p>Наші спеціалісти безкоштовно оцінять вітровий потенціал вашої ділянки перед вибором системи.</p>
+      </div>
+      <div class="consult-img" style="height:420px;">
+        <img src="https://s3-minsk.becloud.by/upload-3ea2dd93a4574872842963d763a8ca31/iblock/aee/aee49269254046d904b63fda05a7f2b3.jpg" alt="Вітрогенератор поблизу будинку">
+      </div>
+    </div>
+    <div class="info-boxes">
+      <div class="info-box"><h4>📍 Де встановлювати</h4><p>Відкрита ділянка, поле, підвищення, берег. Мінімальна відстань від жилих будівель — 2×висота щогли. Дозвіл потрібен для щогл вище 10 м.</p></div>
+      <div class="info-box"><h4>💨 Умови роботи</h4><p>Мінімальний старт: 2–3 м/с. Номінальна: 10–12 м/с. Захист від шторму: авто-відключення при >25 м/с.</p></div>
+      <div class="info-box"><h4>🔧 Монтаж</h4><p>Буріння основи, монтаж щогли, підключення кабельної траси, налаштування контролера. 2–3 дні.</p></div>
+    </div>
+  </div>
+  <div class="catalog-section">
+    <h2>Каталог вітрогенераторів</h2>
+    <p class="sub-desc">Від компактних моделей для дачі до більш потужних систем для будинку і малого підприємства.</p>
+    <div class="catalog-grid">
+
+      <!-- 1 -->
+      <div class="prod-card">
+        <img src="https://voltenergy.com.ua/wp-content/uploads/2025/04/%D0%B2%D1%96%D1%82%D1%80%D1%8F%D0%BA-300.jpg" alt="Вітрогенератор 300 Вт для дачі та зарядки акумуляторів">
+        <div class="prod-body">
+          <h3>Міні-вітряк 300 Вт — дача, зарядка АКБ</h3>
+          <ul class="prod-spec">
+            <li>Тип: HAWT 3-лопатевий</li>
+            <li>Потужність: 300 Вт при 12 м/с</li>
+            <li>Старт: 2 м/с</li>
+            <li>Щогла: 6 м (у комплекті)</li>
+            <li>Напруга: 12/24 В (для АКБ)</li>
+          </ul>
+          <div class="prod-price">9 500 грн <span>з щоглою та монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Міні-вітряк 300 Вт — дача, зарядка АКБ')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="prod-card">
+        <img src="https://bts.net.ua/wa-data/public/shop/products/55/11/31155/images/189040/189040.970.jpg" alt="Вітрогенератор 500 Вт горизонтально-осьовий для будинку">
+        <div class="prod-body">
+          <h3>Вітряк 500 Вт — для невеликого будинку</h3>
+          <ul class="prod-spec">
+            <li>Тип: HAWT 3-лопатевий</li>
+            <li>Потужність: 500 Вт при 11 м/с</li>
+            <li>Старт: 2,5 м/с</li>
+            <li>Щогла: 9 м трубчаста</li>
+            <li>Контролер: у комплекті</li>
+          </ul>
+          <div class="prod-price">18 500 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Вітряк 500 Вт — для невеликого будинку')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="prod-card">
+        <img src="https://ua.rx-generators.com/uploads/202125030/vertical-wind-turbine-500w58483531718.jpg" alt="Вертикальний вітрогенератор 500 Вт для даху або терміналу">
+        <div class="prod-body">
+          <h3>VAWT вертикальний 500 Вт — дах або щогла 6 м</h3>
+          <ul class="prod-spec">
+            <li>Тип: вертикально-осьовий</li>
+            <li>Потужність: 500 Вт при 14 м/с</li>
+            <li>Шум: менше 40 дБА</li>
+            <li>Монтаж: дах або щогла 6 м</li>
+            <li>Ресурс: 15 років</li>
+          </ul>
+          <div class="prod-price">22 000 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('VAWT вертикальний 500 Вт')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="prod-card">
+        <img src="https://content2.rozetka.com.ua/goods/images/big/662862879.jpg" alt="Гібридна система вітер плюс сонячна панель 500 Вт + 400 Вт">
+        <div class="prod-body">
+          <h3>Гібрид вітер+сонце — 500 Вт + 400 Вт</h3>
+          <ul class="prod-spec">
+            <li>Вітряк: 500 Вт вертикальний VAWT</li>
+            <li>Панель: 1×400 Вт моно LONGi</li>
+            <li>Контролер: гібридний MPPT 30А</li>
+            <li>АКБ: LFP 100 Аг (1,2 кВт·год)</li>
+            <li>Виробіток: ~120–180 кВт·год/міс</li>
+          </ul>
+          <div class="prod-price">38 000 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Гібрид вітер+сонце 500 Вт + 400 Вт')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="prod-card">
+        <img src="https://content1.rozetka.com.ua/goods/images/big/376638510.jpg" alt="Вітрогенератор 1 кВт для заміського будинку ферми">
+        <div class="prod-body">
+          <h3>Вітряк 1 кВт — заміський будинок, ферма</h3>
+          <ul class="prod-spec">
+            <li>Тип: HAWT 3-лопатевий</li>
+            <li>Потужність: 1000 Вт при 12 м/с</li>
+            <li>Щогла: 9 м решітчаста</li>
+            <li>Виробіток: ~150–300 кВт·год/міс</li>
+            <li>Контролер + інвертор 1 кВт у комплекті</li>
+          </ul>
+          <div class="prod-price">48 000 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('Вітряк 1 кВт — заміський будинок, ферма')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="prod-card">
+        <img src="https://images.prom.ua/6179894271_w1280_h640_6179894271.jpg" alt="Контролер заряду від вітрогенератора MPPT 12-48 В">
+        <div class="prod-body">
+          <h3>Контролер заряду Wind MPPT — 12/24/48 В</h3>
+          <ul class="prod-spec">
+            <li>Вхід: до 60 В, 40 А</li>
+            <li>Сумісність: будь-який вітряк 12–48 В</li>
+            <li>Захист: від перезаряду, бурі</li>
+            <li>Дисплей: LCD стан АКБ і генерації</li>
+            <li>Bluetooth вбудований</li>
+          </ul>
+          <div class="prod-price">3 800 грн <span>+ підключення 500 грн</span></div>
+          <button class="order-btn" onclick="openOrder('Контролер заряду Wind MPPT 12/24/48 В')">Замовити онлайн</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <section class="footer">
+    <div><h2 style="color:#fff;">Контакти</h2><p>Email: infoecotech@gmail.com</p><br><p>Телефон: +38 (050) 185-59-57</p><br><p>Україна, Полтава</p></div>
+    <div><h2 style="color:#fff;">Написати нам</h2><form onsubmit="event.preventDefault();alert('Повідомлення надіслано!')"><input type="text" placeholder="Ваше ім'я" required><input type="email" placeholder="Email" required><textarea placeholder="Питання або побажання"></textarea><button class="btn">Відправити</button></form></div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     PAGE 6 — ПІДПРИЄМСТВА ТА ОФІСИ
+═══════════════════════════════════════ -->
+<div class="page" id="page-business">
+  <div class="sub-hero" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=80')">
+    <div class="sub-hero-content">
+      <button class="back-btn" onclick="showPage('home')">← Повернутись</button>
+      <h1>Підприємства та офіси</h1>
+      <p>Промислові системи генерації та резервування — від офісу до заводу. Скорочення витрат до 70%.</p>
+    </div>
+  </div>
+  <div class="consult-section">
+    <div class="consult-grid">
+      <div class="consult-text">
+        <h2>Енергонезалежність для бізнесу</h2>
+        <p>Комерційні сонячні станції та резервні системи принципово відрізняються від побутових масштабом. Підприємство з місячним споживанням 1000–20 000 кВт·год встановлює станцію на дах або прилеглу територію та підключає акумуляторний блок через АВР.</p>
+        <p>Для невеликого офісу 100–300 м² достатньо системи 5–20 кВт з резервом 10–30 кВт·год. Це дозволяє закрити денне споживання за рахунок сонця.</p>
+        <p>Термін окупності для комерційних об'єктів — 3–5 років завдяки більшим обсягам споживання.</p>
+      </div>
+      <div class="consult-img" style="height:420px;">
+        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=900&q=80" alt="Промислова сонячна станція на даху">
+      </div>
+    </div>
+    <div class="info-boxes">
+      <div class="info-box"><h4>🏭 Масштаб</h4><p>Від 5 кВт (невеликий офіс) до 100 кВт+ (завод). Проєкт розробляється індивідуально після обміру та аналізу рахунків.</p></div>
+      <div class="info-box"><h4>📉 Економія</h4><p>Зниження витрат на 40–70%. Захист від зростання тарифів на 25 років. Продаж надлишку за «зеленим» тарифом.</p></div>
+      <div class="info-box"><h4>📋 Документи</h4><p>Техпроєкт, узгодження з обленерго, підключення до РЕМ, введення в експлуатацію — усі дозволи наша відповідальність.</p></div>
+    </div>
+  </div>
+  <div class="catalog-section">
+    <h2>Комерційні системи — каталог</h2>
+    <p class="sub-desc">Готові рішення для офісів, складів, виробництва. Точний розрахунок після виїзду фахівця.</p>
+    <div class="catalog-grid">
+
+      <!-- 1 -->
+      <div class="prod-card">
+        <img src="https://i1.poltava.to/uploads/2025/06/27/solar_panel.jpg" alt="Сонячна станція для малого офісу 10 панелей 4 кВт">
+        <div class="prod-body">
+          <h3>Офіс «Міні» — 10 панелей 4 кВт</h3>
+          <ul class="prod-spec">
+            <li>Панелі: 10×Risen 400 Вт моно</li>
+            <li>Інвертор: Growatt MID 4KTL3-X 4 кВт (3-ф)</li>
+            <li>Резерв: без АКБ (мережева)</li>
+            <li>Виробіток: ~420–500 кВт·год/міс</li>
+            <li>Площа даху: ~20 м²</li>
+          </ul>
+          <div class="prod-price">від 72 000 грн <span>під ключ</span></div>
+          <button class="order-btn" onclick="openOrder('Офіс Міні — 10 панелей 4 кВт')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="prod-card">
+        <img src="https://greenplanet.dp.ua/assets/components/phpthumbof/cache/510e4eaf-e82b7e88ad6388135308e2a96d2fafc8.ee976643f0ab5ab3567369341bc82063.jpg" alt="Офісна станція 20 панелей 8 кВт з резервом 10 кВт·год">
+        <div class="prod-body">
+          <h3>Офіс «Стандарт» — 20 панелей 8 кВт + резерв</h3>
+          <ul class="prod-spec">
+            <li>Панелі: 20×LONGi 400 Вт моно</li>
+            <li>Інвертор гібридний: Solis 8 кВт (3-ф)</li>
+            <li>АКБ: Pylontech US3000C 10,5 кВт·год</li>
+            <li>Виробіток: ~850–1000 кВт·год/міс</li>
+            <li>Площа даху: ~40 м²</li>
+          </ul>
+          <div class="prod-price">від 148 000 грн <span>під ключ</span></div>
+          <button class="order-btn" onclick="openOrder('Офіс Стандарт — 20 панелей 8 кВт + резерв')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="prod-card">
+        <img src="https://www.sig.energy/wp-content/uploads/2025/07/228-optimized.jpg" alt="Сонячна станція склад магазин 30 панелей 12 кВт">
+        <div class="prod-body">
+          <h3>Склад / Магазин — 30 панелей 12 кВт</h3>
+          <ul class="prod-spec">
+            <li>Панелі: 30×Jinko 400 Вт Tiger Neo</li>
+            <li>Інвертор: Huawei SUN2000-12KTL-M2</li>
+            <li>АКБ: LUNA2000 15 кВт·год</li>
+            <li>Виробіток: ~1250–1500 кВт·год/міс</li>
+            <li>Площа даху: ~60 м²</li>
+          </ul>
+          <div class="prod-price">від 228 000 грн <span>під ключ</span></div>
+          <button class="order-btn" onclick="openOrder('Склад Магазин — 30 панелей 12 кВт')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="prod-card">
+        <img src="https://content2.rozetka.com.ua/goods/images/big/508078847.jpg" alt="ДБЖ для офісу серверної кімнати APC Smart-UPS 5 кВА">
+        <div class="prod-body">
+          <h3>ДБЖ для офісу / серверної — APC Smart-UPS 5 кВА</h3>
+          <ul class="prod-spec">
+            <li>Потужність: 5 кВА / 4 кВт</li>
+            <li>АКБ: внутрішні AGM, 30 хв автономія</li>
+            <li>Управління: SmartConnect (хмара)</li>
+            <li>Розетки: 10×IEC + 2×Schuko</li>
+            <li>Підходить: сервер, комутатор, ПК</li>
+          </ul>
+          <div class="prod-price">від 38 000 грн <span>з монтажем</span></div>
+          <button class="order-btn" onclick="openOrder('APC Smart-UPS 5 кВА для офісу')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="prod-card">
+        <img src="https://images.prom.ua/3629610985_w1280_h640_3629610985.jpg" alt="Промислова сонячна станція 50 панелей 20 кВт підприємство">
+        <div class="prod-body">
+          <h3>Підприємство — 50 панелей 20 кВт</h3>
+          <ul class="prod-spec">
+            <li>Панелі: 50×LONGi 400 Вт Hi-MO5</li>
+            <li>Інвертор: SMA Tripower 20K (3-ф)</li>
+            <li>АКБ: BYD Battery-Box HVM 22 кВт·год</li>
+            <li>Виробіток: ~2100–2500 кВт·год/міс</li>
+            <li>АВР + SCADA моніторинг</li>
+          </ul>
+          <div class="prod-price">від 370 000 грн <span>під ключ</span></div>
+          <button class="order-btn" onclick="openOrder('Підприємство — 50 панелей 20 кВт')">Замовити онлайн</button>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="prod-card">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Енергоаудит та проєктування комерційного об'єкту">
+        <div class="prod-body">
+          <h3>Енергоаудит + Проєктування</h3>
+          <ul class="prod-spec">
+            <li>Аналіз рахунків і споживання</li>
+            <li>3D-моделювання тіньових зон даху</li>
+            <li>Техніко-економічне обґрунтування</li>
+            <li>Розробка технічного проєкту</li>
+            <li>Узгодження з обленерго</li>
+          </ul>
+          <div class="prod-price">від 4 500 грн <span>повний цикл</span></div>
+          <button class="order-btn" onclick="openOrder('Енергоаудит + Проєктування')">Замовити онлайн</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <section class="footer">
+    <div><h2 style="color:#fff;">Контакти</h2><p>Email: infoecotech@gmail.com</p><br><p>Телефон: +38 (050) 185-59-57</p><br><p>Україна, Полтава</p></div>
+    <div><h2 style="color:#fff;">Написати нам</h2><form onsubmit="event.preventDefault();alert('Повідомлення надіслано!')"><input type="text" placeholder="Ваше ім'я" required><input type="email" placeholder="Email" required><textarea placeholder="Опишіть ваш об'єкт і потреби"></textarea><button class="btn">Відправити</button></form></div>
+  </section>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     ORDER MODAL
+═══════════════════════════════════════ -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeOrder()">✕</button>
+    <h3 id="modalTitle">Замовити</h3>
+    <p id="modalSub">Залиште контакти — наш менеджер зв'яжеться протягом 30 хвилин</p>
+    <form onsubmit="event.preventDefault();alert('Замовлення прийнято! Ми зателефонуємо вам найближчим часом.');closeOrder();">
+      <input type="text" placeholder="Ваше ім'я" required style="background:#f5efe8;color:#2f3133;border:1px solid #ddd;">
+      <input type="tel" placeholder="Телефон" required style="background:#f5efe8;color:#2f3133;border:1px solid #ddd;margin-top:10px;">
+      <input type="email" placeholder="Email (необов'язково)" style="background:#f5efe8;color:#2f3133;border:1px solid #ddd;margin-top:10px;">
+      <textarea placeholder="Коментар або запитання" style="background:#f5efe8;color:#2f3133;border:1px solid #ddd;margin-top:10px;min-height:90px;resize:vertical;"></textarea>
+      <button class="btn" style="width:100%;text-align:center;margin-top:16px;">Підтвердити замовлення</button>
+    </form>
+  </div>
+</div>
+
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const target=document.getElementById('page-'+id);
+  if(target){target.classList.add('active');}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function scrollAfter(sectionId){
+  setTimeout(()=>{
+    const el=document.getElementById(sectionId);
+    if(el) el.scrollIntoView({behavior:'smooth'});
+  },100);
+}
+function toggleHeroPopup(){
+  document.getElementById('heroPopup').classList.toggle('active');
+}
+function openOrder(productName){
+  document.getElementById('modalTitle').textContent=productName;
+  document.getElementById('modalSub').textContent='Залиште контакти — наш менеджер зв\'яжеться протягом 30 хвилин';
+  document.getElementById('orderModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeOrder(){
+  document.getElementById('orderModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('orderModal').addEventListener('click',function(e){
+  if(e.target===this) closeOrder();
+});
+</script>
+</body>
+</html>
